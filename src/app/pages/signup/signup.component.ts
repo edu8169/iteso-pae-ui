@@ -7,9 +7,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-
+  public signUpForm;
   showPassword: boolean = false;
-
+  
+  public isSubmitted = false;
   form: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
@@ -18,9 +19,15 @@ export class SignupComponent implements OnInit {
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      confirm: ['', [Validators.required, Validators.minLength(8)]]
+      confirm: ['', [Validators.required, Validators.minLength(8)]],
+      tc: ['',[Validators.requiredTrue]]
+
     }, {
-      validators: this.matchPasswords.bind(this)
+      validators: [
+        ()=>{
+          return this.matchPasswords()
+        }
+      ]
     });
   }
 
@@ -49,5 +56,15 @@ export class SignupComponent implements OnInit {
       return { passwordMismatch: true }
     }
   }
+
+  onSubmit(){
+    this.isSubmitted = true;
+    if(this.signUpForm.invalid){
+      return;
+    }
+    alert(JSON.stringify(this.signUpForm.value));
+  }
+ 
+}
 
 }
