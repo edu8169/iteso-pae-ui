@@ -18,7 +18,11 @@
             <input type="password" name="confirm" placeholder="Confirm your password" formControlName="confirm">
         </div>
         <div>
-            <button>Sign up</button>
+            <label for="tc">Aceptas los terminos y condiciones? UwU</label>
+            <input type="checkbox" name="tc" formControlName="tc"> 
+        </div>
+        <div>
+            <button routerLink="/login">Sign up</button>
         </div>
         <span *ngIf="form.errors && form.errors['passwordMismatch']">Passwords don't match</span>
         <div>
